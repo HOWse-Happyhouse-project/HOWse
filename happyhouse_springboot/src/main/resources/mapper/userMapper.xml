@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ssafy.happyhouse.model.mapper.UserMapper">
+	
+	<!-- User -->
+	<!-- 로그인 -->
+	<select id="loginUser" parameterType="String" resultType="UserDTO">
+		select id, password, name, email, age
+		from user
+		where id = #{id} and password = #{pw}
+	</select>	
+	
+	<!-- 회원가입 -->
+	<insert id="insertUser" parameterType="UserDTO">
+		Insert into user 
+		values(#{id}, #{password}, #{name}, #{email}, #{age})
+	</insert>
+	
+	<!-- 회원탈퇴 -->
+	<delete id="deleteUser" parameterType="String">
+		Delete from user where id=#{id}
+	</delete>
+	
+	<!-- 회원수정 -->
+	<update id="updateUser" parameterType="UserDTO">
+		Update user 
+		set password=#{password}, name=#{name}, email=#{email}, age=#{age} 
+		where id=#{id}
+	</update>
+	
+	<!-- 회원조회 -->
+	<select id="viewUserId" parameterType="String" resultType="UserDTO">
+		Select * 
+		from user 
+		where id=#{id}
+	</select>
+
+	<!-- 찜한매물 관리 -->
+	<!-- UserInter 추가 -->
+	<insert id="insertUserInter" parameterType="map">
+		Insert into userinter(id, aptCode, apartmentName, buildyear, dongCode, dong, jibun, lat, lng, sidoname, gugunname, recentprice)
+		values(#{id}, #{aptCode}, #{apartmentName}, #{buildyear}, #{dongCode}, #{dong}, #{jibun}, #{lat}, #{lng}, #{sidoname}, #{gugunname}, #{recentPrice})
+	</insert>
+
+	<!-- id로 UserInter 조회 -->
+	<select id="viewUserInterId" parameterType="String" resultType="HouseInfoDto">
+		select * from userinter where id = #{id};
+	</select>
+
+	<!-- UserInter 삭제 -->
+	<delete id="deleteUserInter" parameterType="String">
+		Delete from userinter 
+		where id=#{id} and aptCode=#{aptCode}
+	</delete>	
+
+
+</mapper>
